@@ -1,0 +1,94 @@
+{
+  "coders": [
+    {
+      "id": 1,
+      "name": "John",
+      "description": "John is a coder",
+      "activities": [
+        {
+          "id": 1,
+          "name": "Coding",
+          "description": "John is coding"
+        },
+        {
+          "id": 2,
+          "name": "Eating",
+          "description": "John is eating"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Jane",
+      "description": "Jane is a coder",
+      "activities": [
+        {
+          "id": 1,
+          "name": "Coding",
+          "description": "Jane is coding"
+        },
+        {
+          "id": 2,
+          "name": "Eating",
+          "description": "Jane is eating"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Jack",
+      "description": "Jack is a coder",
+      "activities": [
+        {
+          "id": 1,
+          "name": "Coding",
+          "description": "Jack is coding"
+        },
+        {
+          "id": 2,
+          "name": "Eating",
+          "description": "Jack is eating"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Jill",
+      "description": "Jill is a coder",
+      "activities": [
+        {
+          "id": 1,
+          "name": "Coding",
+          "description": "Jill is coding"
+        },
+        {
+          "id": 2,
+          "name": "Eating",
+          "description": "Jill is eating"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Joe",
+      "description": "Joe is a coder",
+      "activities": [
+        {
+          "id": 1,
+          "name": "Coding",
+          "description": "Joe is coding"
+        },
+        {
+          "id": 2,
+          "name": "Eating",
+          "description": "Joe is eating"
+        }
+      ]
+    },
+    {
+      "name": "Sally",
+      "description": "Sally is a coder.",
+      "id": 6
+    }
+  ]
+}
