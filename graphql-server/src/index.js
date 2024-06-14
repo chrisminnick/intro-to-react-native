@@ -1,16 +1,13 @@
 const { ApolloServer } = require('apollo-server');
-
-const CoderAPI = require('./datasources/coder-api');
-const ActivityAPI = require('./datasources/activity-api');
-
-const resolvers = require('./resolvers');
 const typeDefs = require('./schema');
+const resolvers = require('./resolvers');
+const CoderAPI = require('./datasources/coder-api');
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => {
-    return { coderAPI: new CoderAPI(), activityAPI: new ActivityAPI() };
+    return { coderAPI: new CoderAPI() };
   },
 });
 
