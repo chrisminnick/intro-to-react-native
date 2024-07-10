@@ -10,12 +10,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^16.3.2",
+    "nodemon": "^3.0.3"
+  },
   "dependencies": {
     "apollo-datasource-rest": "^3.7.0",
-    "apollo-server": "^3.10.2",
-    "graphql": "^16.6.0"
-  },
-  "devDependencies": {
-    "eslint": "^8.24.0"
+    "apollo-server": "^3.13.0",
+    "graphql": "^16.8.1"
   }
 }

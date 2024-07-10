@@ -8,6 +8,11 @@ class CoderAPI extends RESTDataSource {
   getAllCoders() {
     return this.get('coders');
   }
+  getActivities() {
+    return this.get('activities');
+  }
+  addCoder(name, description) {
+    return this.post(`coders`, { name, description });
+  }
 }
-
 module.exports = CoderAPI;
