@@ -1,6 +1,7 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet, FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery, gql } from '@apollo/client';
+
 export const CODERS_QUERY = gql`
   query coders {
     coders {
@@ -17,25 +18,23 @@ export default function CodersList() {
   if (error) return <Text>{error.message}</Text>;
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      {data.coders.map((coder) => (
-        <View key={coder.id}>
-          <Text>{coder.name}</Text>
-          <Text>{coder.description}</Text>
-        </View>
-      ))}
+    <>
+      <FlatList
+        data={data.coders}
+        renderItem={({ item }) => (
+          <View style={styles.coder} key={item.id}>
+            <Text style={styles.coderName}>{item.name}</Text>
+            <Text style={styles.coderDesc}>{item.description}</Text>
+          </View>
+        )}
+      />
+
       <Link href="/addcoder">
         <Pressable style={styles.button}>
           <Text>Add a Coder</Text>
         </Pressable>
       </Link>
-    </View>
+    </>
   );
 }
 
@@ -45,5 +44,19 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'blue',
     color: 'white',
+  },
+  coder: {
+    padding: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: 'lightblue',
+    width: '100%',
+  },
+  coderName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  coderDesc: {
+    fontSize: 16,
   },
 });
