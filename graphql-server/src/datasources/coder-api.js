@@ -3,7 +3,7 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 class CoderAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = 'http://localhost:3001';
+    this.baseURL = process.env.CODER_API_URL;
   }
   getAllCoders() {
     return this.get('coders');
