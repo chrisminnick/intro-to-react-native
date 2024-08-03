@@ -2,7 +2,6 @@
   "name": "api-server",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "start": "json-server --watch db.json --port 3001"
   },

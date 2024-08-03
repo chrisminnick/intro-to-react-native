@@ -4,7 +4,7 @@ import { StatusModalProvider } from '../context/statusModalContext';
 
 export default function RootLayout() {
   const client = new ApolloClient({
-    uri: 'http://127.0.0.1:4000',
+    uri: process.env.EXPO_PUBLIC_API_URL,
     cache: new InMemoryCache(),
     connectToDevTools: true,
   });

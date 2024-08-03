@@ -85,6 +85,11 @@
       "name": "New Coder",
       "description": "is the best coder.",
       "id": 14
+    },
+    {
+      "name": "Fred",
+      "description": "Fred is still a coder.",
+      "id": 15
     }
   ]
 }
