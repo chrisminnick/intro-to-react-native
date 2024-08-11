@@ -14,6 +14,7 @@ export default function RootLayout() {
       <StatusModalProvider>
         <Stack>
           <Stack.Screen name="index" />
+          <Stack.Screen name="addcoder" />
         </Stack>
       </StatusModalProvider>
     </ApolloProvider>

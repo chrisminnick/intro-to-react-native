@@ -1,95 +1,127 @@
 {
+  "activities": [
+    {
+      "id": 1,
+      "name": "running",
+      "description": "running is fun"
+    },
+    {
+      "id": 2,
+      "name": "cycling",
+      "description": "cycling is great for cardio"
+    },
+    {
+      "id": 3,
+      "name": "swimming",
+      "description": "swimming works out the whole body"
+    },
+    {
+      "id": 4,
+      "name": "yoga",
+      "description": "yoga improves flexibility and strength"
+    },
+    {
+      "id": 5,
+      "name": "weightlifting",
+      "description": "weightlifting builds muscle"
+    },
+    {
+      "id": 6,
+      "name": "hiking",
+      "description": "hiking is a great way to enjoy nature"
+    },
+    {
+      "id": 7,
+      "name": "boxing",
+      "description": "boxing is a high-intensity workout"
+    },
+    {
+      "id": 8,
+      "name": "pilates",
+      "description": "pilates strengthens the core"
+    },
+    {
+      "id": 9,
+      "name": "dancing",
+      "description": "dancing is a fun way to stay fit"
+    },
+    {
+      "id": 10,
+      "name": "rock climbing",
+      "description": "rock climbing builds strength and endurance"
+    },
+    {
+      "id": 11,
+      "name": "rowing",
+      "description": "rowing is a full-body workout"
+    }
+  ],
   "coders": [
     {
       "id": 1,
       "name": "John",
       "description": "John is a coder",
-      "activities": [
-        1
-      ]
+      "activities": [1]
     },
     {
       "id": 2,
-      "name": "Jane",
-      "description": "Jane is a coder",
-      "activities": [
-        1,
-        2
-      ]
+      "name": "Alice",
+      "description": "Alice loves outdoor activities",
+      "activities": [2, 6]
     },
     {
       "id": 3,
-      "name": "Jack",
-      "description": "Jack is a coder",
-      "activities": [
-        1,
-        2
-      ]
+      "name": "Bob",
+      "description": "Bob is a fitness enthusiast",
+      "activities": [3, 5]
     },
     {
       "id": 4,
-      "name": "Jill",
-      "description": "Jill is a coder",
-      "activities": [
-        1,
-        2
-      ]
+      "name": "Carol",
+      "description": "Carol enjoys relaxing workouts",
+      "activities": [4, 8]
     },
     {
       "id": 5,
-      "name": "Joe",
-      "description": "Joe is a coder",
-      "activities": []
+      "name": "Dave",
+      "description": "Dave is a competitive athlete",
+      "activities": [7, 10]
     },
     {
-      "name": "Sally",
-      "description": "Sally is a coder.",
-      "id": 6
+      "id": 6,
+      "name": "Eve",
+      "description": "Eve likes to stay active",
+      "activities": [9, 11]
     },
     {
-      "name": "lkjlkj",
-      "description": "lkjol",
-      "id": 7
+      "id": 7,
+      "name": "Frank",
+      "description": "Frank is a weekend warrior",
+      "activities": [6, 1]
     },
     {
-      "name": "oijoij",
-      "description": "oijoij",
-      "id": 8
+      "id": 8,
+      "name": "Grace",
+      "description": "Grace enjoys a variety of workouts",
+      "activities": [2, 4, 5]
     },
     {
-      "name": "testing",
-      "description": "testing description",
-      "id": 9
+      "id": 9,
+      "name": "Hank",
+      "description": "Hank is a gym regular",
+      "activities": [5, 7]
     },
     {
-      "name": "pjpo",
-      "description": "popo",
-      "id": 10
+      "id": 10,
+      "name": "Ivy",
+      "description": "Ivy likes to mix things up",
+      "activities": [3, 9]
     },
     {
-      "name": "pokpo",
-      "description": "polkpo",
-      "id": 11
-    },
-    {
-      "name": "Tester Person",
-      "description": "Tester",
-      "id": 12
-    },
-    {
-      "name": "New Coder",
-      "description": "is the best coder.",
-      "id": 13
-    },
-    {
-      "name": "New Coder",
-      "description": "is the best coder.",
-      "id": 14
-    },
-    {
-      "name": "Fred",
-      "description": "Fred is still a coder.",
-      "id": 15
+      "id": 11,
+      "name": "Jack",
+      "description": "Jack is an adventure seeker",
+      "activities": [10, 11]
     }
   ]
 }

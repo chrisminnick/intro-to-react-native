@@ -2,6 +2,7 @@ const { gql } = require('apollo-server');
 const typeDefs = gql`
   type Query {
     coders: [Coder]
+    activities: [Activity]
   }
 
   type Coder {
