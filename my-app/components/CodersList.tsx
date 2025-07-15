@@ -1,4 +1,5 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Pressable } from 'react-native';
+import { Link } from 'expo-router';
 import { useQuery, gql } from '@apollo/client';
 
 export const CODERS_QUERY = gql`
@@ -17,6 +18,12 @@ export default function CodersList() {
 
   return (
     <View style={styles.container}>
+      <Link href="/addcoder">
+        <Pressable style={styles.button}>
+          <Text>Add a Coder</Text>
+        </Pressable>
+      </Link>
+
       {data.coders.map(
         (coder: { id: string; name: string; description: string }) => (
           <View key={coder.id}>
@@ -31,7 +38,26 @@ export default function CodersList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: 'blue',
+    color: 'white',
+  },
+  buttonText: {
+    color: 'white',
+  },
+  textInput: {
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 10,
+    margin: 10,
+  },
+  errorText: {
+    color: 'red',
   },
 });
