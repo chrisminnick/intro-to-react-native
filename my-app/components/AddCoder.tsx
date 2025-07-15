@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { gql, useMutation } from '@apollo/client';
 import { Link } from 'expo-router';
+import StatusModal from './StatusModal';
+import { useStatusModal } from '../context/statusModalContext';
 
 const ADD_CODER = gql`
   mutation AddCoderMutation($coderName: String!, $coderDesc: String!) {
@@ -18,6 +20,20 @@ const ADD_CODER = gql`
 `;
 
 export default function AddCoder() {
+  const { statusModal, setStatusModal } = useStatusModal();
+  const updateStatusModal = (status: string) => {
+    setStatusModal({
+      ...statusModal,
+      status,
+      isVisible: true,
+    });
+  };
+  const onClose = () => {
+    setStatusModal({
+      ...statusModal,
+      isVisible: false,
+    });
+  };
   const {
     control,
     handleSubmit,
@@ -33,16 +49,27 @@ export default function AddCoder() {
   };
 
   const [addCoder] = useMutation(ADD_CODER, {
+    // define a callback function that will be called when the mutation is completed
     onCompleted: (data) => {
+      // log the data returned by the mutation to the console
       console.log(data);
+      // update the status modal with the message returned by the mutation
+      updateStatusModal(data.addCoder.message);
     },
     onError: (error) => {
       console.error(error);
+      updateStatusModal(error.message);
     },
   });
 
   return (
     <View style={styles.container}>
+      <StatusModal
+        isVisible={statusModal.isVisible}
+        onClose={onClose}
+        status={statusModal.status}
+      />
+
       <Text>Coder Name</Text>
       <View>
         <Controller
