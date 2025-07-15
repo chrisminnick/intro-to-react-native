@@ -1,0 +1,241 @@
+Lab: Creating the AddActivity Component
+
+In this lab, you'll create a form component that allows users to add activities to coders. The component will use GraphQL queries to fetch data, React Hook Form for form management, and the StatusModal context for user feedback.
+
+1. Create the AddActivity.tsx file in the /components folder.
+
+2. Import the necessary dependencies at the top of the file:
+import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { Link, router } from 'expo-router';
+import StatusModal from './StatusModal';
+import { useStatusModal } from '../context/statusModalContext';
+import { Picker } from '@react-native-picker/picker';
+
+3. Define the ACTIVITIES_QUERY to fetch all available activities:
+const ACTIVITIES_QUERY = gql`
+  query activities {
+    activities {
+      id
+      name
+      description
+    }
+  }
+`;
+
+4. Define the CODERS_QUERY to fetch all coders with their activities:
+const CODERS_QUERY = gql`
+  query coders {
+    coders {
+      id
+      name
+      description
+      activities {
+        id
+        name
+        description
+      }
+    }
+  }
+`;
+
+5. Define the ADD_ACTIVITY mutation that will add an activity to a coder:
+const ADD_ACTIVITY = gql`
+  mutation AddActivityMutation($coderId: ID!, $activityId: ID!) {
+    addActivity(coderId: $coderId, activityId: $activityId) {
+      code
+      success
+      message
+      activity {
+        id
+        name
+        description
+      }
+    }
+  }
+`;
+
+6. Create the AddActivity function component and set up the GraphQL queries:
+export default function AddActivity() {
+  // Fetch coders from the CODERS_QUERY
+  const {
+    data: coders,
+    loading: codersLoading,
+    error: codersError,
+  } = useQuery(CODERS_QUERY);
+
+  // Fetch activities from the ACTIVITIES_QUERY
+  const {
+    data: activities,
+    loading: activitiesLoading,
+    error: activitiesError,
+  } = useQuery(ACTIVITIES_QUERY);
+
+7. Set up the StatusModal context and helper functions:
+  const { statusModal, setStatusModal } = useStatusModal();
+  const updateStatusModal = (status: string) => {
+    setStatusModal({
+      ...statusModal,
+      status,
+      isVisible: true,
+    });
+  };
+  const onClose = () => {
+    setStatusModal({
+      ...statusModal,
+      isVisible: false,
+    });
+  };
+
+8. Configure React Hook Form with default values:
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      coderId: '',
+      activityId: '',
+    },
+  });
+
+9. Set up the addActivity mutation with success and error handling:
+  const [addActivity] = useMutation(ADD_ACTIVITY, {
+    onCompleted: (data) => {
+      console.log(data);
+      updateStatusModal(data.addActivity.message);
+      // Navigate to home screen after a short delay to show the success message
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+    },
+    onError: (error) => {
+      console.error(error);
+      updateStatusModal(error.message);
+    },
+  });
+
+10. Create the form submission handler:
+  const onSubmit = (data: any) => {
+    addActivity({ variables: data });
+  };
+
+11. Handle loading and error states after all hooks are called:
+  // Handle loading and error states after all hooks are called
+  if (codersLoading || activitiesLoading) return <Text>Loading...</Text>;
+  if (codersError) return <Text>{codersError.message}</Text>;
+  if (activitiesError) return <Text>{activitiesError.message}</Text>;
+
+12. Create the component's return statement with the StatusModal:
+  return (
+    <View style={styles.container}>
+      <StatusModal
+        isVisible={statusModal.isVisible}
+        status={statusModal.status}
+        onClose={onClose}
+      />
+
+13. Add the Coder selection picker using React Hook Form Controller:
+      <Text>Coder</Text>
+      <View>
+        <Controller
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <Picker
+              selectedValue={value}
+              onValueChange={(itemValue) => onChange(itemValue)}
+              style={styles.picker}
+            >
+              <Picker.Item label="Select a Coder" value="" />
+              {coders.coders.map((coder: any) => (
+                <Picker.Item
+                  key={coder.id}
+                  label={coder.name}
+                  value={coder.id}
+                />
+              ))}
+            </Picker>
+          )}
+          name="coderId"
+        />
+        {errors.coderId && <Text>This is required.</Text>}
+      </View>
+
+14. Add the Activity selection picker using React Hook Form Controller:
+      <Text>Activity</Text>
+      <View>
+        <Controller
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <Picker
+              selectedValue={value}
+              onValueChange={(itemValue) => onChange(itemValue)}
+              style={styles.picker}
+            >
+              <Picker.Item label="Select an Activity" value="" />
+              {activities.activities.map((activity: any) => (
+                <Picker.Item
+                  key={activity.id}
+                  label={activity.name}
+                  value={activity.id}
+                />
+              ))}
+            </Picker>
+          )}
+          name="activityId"
+        />
+        {errors.activityId && <Text>This is required.</Text>}
+      </View>
+
+15. Add the submit button and close the View and function:
+      <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
+        <Text style={styles.buttonText}>Add Activity</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+16. Add the StyleSheet for component styling:
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textInput: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    width: '80%',
+  },
+  button: {
+    backgroundColor: '#007BFF',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+  },
+  picker: {
+    height: 50,
+    width: '80%',
+  },
+});
+
+17. Test your component by running the app and navigating to the AddActivity screen. Verify that:
+    - The coders dropdown is populated with existing coders
+    - The activities dropdown is populated with available activities
+    - Form validation works (required field errors appear)
+    - The success modal appears after adding an activity
+    - The app navigates back to the home screen after 2 seconds
+    - The newly added activity appears in the coder's activity list on the home screen
+
+Note: This component uses the Rules of Hooks properly by ensuring all hooks (useQuery, useStatusModal, useForm, useMutation) are called before any conditional returns, preventing the "Rendered more hooks than during the previous render" error.

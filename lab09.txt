@@ -1,0 +1,171 @@
+Lab 9: Creating State, Context, and a Modal
+In this lab, you'll learn how to create a modal window that pops up on the screen to show the result of various network operations in the app, such as adding or deleting a coder. A modal window is a type of dialog that blocks the user from accessing the main content until they perform an action or dismiss the window.
+
+To create a modal window, you'll use React state and context to store and share the information about the current message and visibility status of the modal window. React state is a feature of React that allows you to store data that can change over time in your components. React context is a feature of React that allows you to pass data to multiple components without using props, which can be cumbersome and inefficient for deeply nested components. 
+
+You'll also use TypeScript interfaces to define the shape of the data and props that you'll use in your components. 
+1.	Create a new folder at the root of your project named context.
+2.	Create a file named statusModalContext.tsx in /context.
+3.	Import React, createContext, useContext, useState, and ReactNode from the react library:
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+4.	Define TypeScript interfaces for the StatusModalContext and for StatusModalProvider's props:
+interface StatusModalContextType {
+  statusModal: { isVisible: boolean; status: string };
+  setStatusModal: React.Dispatch<
+    React.SetStateAction<{ isVisible: boolean; status: string }>
+  >;
+}
+
+interface StatusModalProviderProps {
+  children: ReactNode;
+}
+5.	Define StatusModalContext:
+const StatusModalContext = createContext<StatusModalContextType | undefined>(
+  undefined
+);
+6.	Define the StatusModalProvider:
+export const StatusModalProvider: React.FC<StatusModalProviderProps> = ({
+  children,
+}) => {
+  const [statusModal, setStatusModal] = useState({
+    isVisible: false,
+    status: '',
+  });
+
+  return (
+    <StatusModalContext.Provider value={{ statusModal, setStatusModal }}>
+      {children}
+    </StatusModalContext.Provider>
+  );
+};
+7.	Create a custom hook that can be used inside your components to use the context.
+export const useStatusModal = () => {
+  const context = useContext(StatusModalContext);
+  if (!context) {
+    throw new Error('useStatusModal must be used within a StatusModalProvider');
+  }
+  return context;
+};
+8.	Import StatusModalProvider into _layout.tsx.
+import { StatusModalProvider } from '../context/statusModalContext';
+9.	Wrap the StatusModalProvider around the Stack element in _layout.tsx.
+  return (
+    <ApolloProvider client={client}>
+      <StatusModalProvider>
+        <Stack>
+          <Stack.Screen name="index" />
+        </Stack>
+      </StatusModalProvider>
+    </ApolloProvider>
+  );
+10.	Create a new component named StatusModal:
+import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
+
+export default function StatusModal({
+  isVisible,
+  onClose,
+  status,
+}: {
+  isVisible: boolean;
+  onClose: any;
+  status: any;
+}) {
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={isVisible}
+      onRequestClose={onClose}
+    >
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>{status}</Text>
+          <Pressable style={styles.button} onPress={onClose}>
+            <Text>Close</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+11.	Style StatusModal. Here's are some styles you can use:
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    backgroundColor: '#2196F3',
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+});
+12.	Import StatusModal and useStatusModal into AddCoder.tsx:
+import StatusModal from './StatusModal';
+import { useStatusModal } from '../context/statusModalContext';
+13.	Deconstruct statusModal and setStatusModal from useStatusModal (in the AddCoder function), and define functions for updating the statusModal state and for closing the StatusModal.
+const { statusModal, setStatusModal } = useStatusModal();
+  const updateStatusModal = (status: string) => {
+    setStatusModal({
+      ...statusModal,
+      status,
+      isVisible: true,
+    });
+  };
+  const onClose = () => {
+    setStatusModal({
+      ...statusModal,
+      isVisible: false,
+    });
+  };
+14.	Update the addCoder mutation to open the StatusModal after adding a coder or failing to add a coder:
+  const [addCoder] = useMutation(ADD_CODER, {
+    onCompleted: (data) => {
+      console.log(data);
+      updateStatusModal(data.addCoder.message);
+    },
+    onError: (error) => {
+      console.error(error);
+      updateStatusModal(error.message);
+    },
+  });
+15.	Render StatusModal in the return statement (inside the View element, above the other content) and pass it the necessary props:
+  <StatusModal
+    isVisible={statusModal.isVisible}
+    onClose={onClose}
+    status={statusModal.status}
+  />
+16.	Run your app and test that the modal appears after you Add a coder and that it disappears when you close it.

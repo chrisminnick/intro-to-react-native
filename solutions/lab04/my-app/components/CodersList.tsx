@@ -7,6 +7,11 @@ export const CODERS_QUERY = gql`
       id
       name
       description
+      activities {
+        id
+        name
+        description
+      }
     }
   }
 `;
