@@ -36,10 +36,10 @@ export default function CodersList() {
       <FlatList
         data={data.coders}
         renderItem={({ item: coder }) => (
-          <View key={coder.id} style={styles.coder}>
+          <View style={styles.coder} key={coder.id}>
+            {' '}
             <Text style={styles.coderName}>{coder.name}</Text>
             <Text style={styles.coderDesc}>{coder.description}</Text>
-
             {coder.activities && coder.activities.length > 0 && (
               <View style={styles.activitiesContainer}>
                 <Text style={styles.activitiesTitle}>Activities:</Text>
@@ -53,7 +53,6 @@ export default function CodersList() {
                 ))}
               </View>
             )}
-
             {(!coder.activities || coder.activities.length === 0) && (
               <Text style={styles.noActivities}>No activities yet</Text>
             )}
@@ -69,6 +68,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: 'blue',
+    color: 'white',
+  },
+  buttonText: {
+    color: 'white',
+  },
+  textInput: {
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 10,
+    margin: 10,
+  },
+  errorText: {
+    color: 'red',
   },
   coder: {
     padding: 10,
@@ -113,23 +130,5 @@ const styles = StyleSheet.create({
     color: '#999',
     fontStyle: 'italic',
     marginTop: 4,
-  },
-  button: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: 'blue',
-    color: 'white',
-  },
-  buttonText: {
-    color: 'white',
-  },
-  textInput: {
-    borderColor: 'black',
-    borderWidth: 1,
-    padding: 10,
-    margin: 10,
-  },
-  errorText: {
-    color: 'red',
   },
 });

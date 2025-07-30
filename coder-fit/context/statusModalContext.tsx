@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+
 interface StatusModalContextType {
   statusModal: { isVisible: boolean; status: string };
   setStatusModal: React.Dispatch<
@@ -9,9 +10,11 @@ interface StatusModalContextType {
 interface StatusModalProviderProps {
   children: ReactNode;
 }
+
 const StatusModalContext = createContext<StatusModalContextType | undefined>(
   undefined
 );
+
 export const StatusModalProvider: React.FC<StatusModalProviderProps> = ({
   children,
 }) => {
@@ -26,6 +29,7 @@ export const StatusModalProvider: React.FC<StatusModalProviderProps> = ({
     </StatusModalContext.Provider>
   );
 };
+
 export const useStatusModal = () => {
   const context = useContext(StatusModalContext);
   if (!context) {
