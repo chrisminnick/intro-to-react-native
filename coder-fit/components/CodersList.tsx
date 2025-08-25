@@ -23,14 +23,14 @@ export default function CodersList() {
 
   return (
     <View style={styles.container}>
-      <Link href="/addcoder">
+      <Link href="/addcoder" asChild>
         <Pressable style={styles.button}>
-          <Text>Add a Coder</Text>
+          <Text style={styles.buttonText}>Add a Coder</Text>
         </Pressable>
       </Link>
-      <Link href="/addactivity">
+      <Link href="/addactivity" asChild>
         <Pressable style={styles.button}>
-          <Text>Add an Activity to a Coder</Text>
+          <Text style={styles.buttonText}>Add an Activity to a Coder</Text>
         </Pressable>
       </Link>
       <FlatList
@@ -114,20 +114,27 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     marginTop: 4,
   },
+  textInput: {
+    height: 40,
+    borderColor: '#000000',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    width: '80%',
+  },
   button: {
+    backgroundColor: '#007AFF',
+    padding: 15,
+    borderRadius: 8,
     marginTop: 20,
-    padding: 10,
-    backgroundColor: 'blue',
-    color: 'white',
+    minWidth: 200,
+    alignItems: 'center',
   },
   buttonText: {
-    color: 'white',
-  },
-  textInput: {
-    borderColor: 'black',
-    borderWidth: 1,
-    padding: 10,
-    margin: 10,
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
   },
   errorText: {
     color: 'red',

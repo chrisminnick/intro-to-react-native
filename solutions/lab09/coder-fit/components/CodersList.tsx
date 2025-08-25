@@ -29,7 +29,7 @@ export default function CodersList() {
         )}
       />
 
-      <Link href="/addcoder">
+      <Link href="/addcoder" asChild>
         <Pressable style={styles.button}>
           <Text>Add a Coder</Text>
         </Pressable>

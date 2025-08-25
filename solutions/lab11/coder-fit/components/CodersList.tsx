@@ -23,12 +23,12 @@ export default function CodersList() {
 
   return (
     <View style={styles.container}>
-      <Link href="/addcoder">
+      <Link href="/addcoder" asChild>
         <Pressable style={styles.button}>
           <Text>Add a Coder</Text>
         </Pressable>
       </Link>
-      <Link href="/addactivity">
+      <Link href="/addactivity" asChild>
         <Pressable style={styles.button}>
           <Text>Add an Activity to a Coder</Text>
         </Pressable>
@@ -116,12 +116,17 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    padding: 10,
-    backgroundColor: 'blue',
-    color: 'white',
+    padding: 15,
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    minWidth: 200,
+    alignItems: 'center',
   },
   buttonText: {
-    color: 'white',
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
   },
   textInput: {
     borderColor: 'black',

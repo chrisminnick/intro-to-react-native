@@ -113,7 +113,7 @@ export default function AddCoder() {
       </Pressable>
       <Link href="/">
         <Pressable style={styles.button}>
-          <Text>Return to Coder List</Text>
+          <Text style={styles.buttonText}>Return to Coder List</Text>
         </Pressable>
       </Link>
     </View>
@@ -129,12 +129,17 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    padding: 10,
-    backgroundColor: 'blue',
-    color: 'white',
+    padding: 15,
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    minWidth: 200,
+    alignItems: 'center',
   },
   buttonText: {
-    color: 'white',
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
   },
   textInput: {
     borderColor: 'black',
