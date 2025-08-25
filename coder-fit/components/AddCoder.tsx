@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
+import { Link } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { gql, useMutation } from '@apollo/client';
-import { Link } from 'expo-router';
 import StatusModal from './StatusModal';
 import { useStatusModal } from '../context/statusModalContext';
 
@@ -18,7 +18,6 @@ const ADD_CODER = gql`
     }
   }
 `;
-
 export default function AddCoder() {
   const { statusModal, setStatusModal } = useStatusModal();
   const updateStatusModal = (status: string) => {
@@ -34,34 +33,25 @@ export default function AddCoder() {
       isVisible: false,
     });
   };
+  const [addCoder] = useMutation(ADD_CODER, {
+    onCompleted: (data) => {
+      console.log(data);
+      updateStatusModal(data.addCoder.message);
+    },
+    onError: (error) => {
+      console.log(error);
+      updateStatusModal(error.message);
+    },
+  });
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      coderName: '',
-      coderDesc: '',
-    },
-  });
+  } = useForm({ defaultValues: { coderName: '', coderDesc: '' } });
+
   const onSubmit = (data: any) => {
     addCoder({ variables: data });
   };
-
-  const [addCoder] = useMutation(ADD_CODER, {
-    // define a callback function that will be called when the mutation is completed
-    onCompleted: (data) => {
-      // log the data returned by the mutation to the console
-      console.log(data);
-      // update the status modal with the message returned by the mutation
-      updateStatusModal(data.addCoder.message);
-    },
-    onError: (error) => {
-      console.error(error);
-      updateStatusModal(error.message);
-    },
-  });
-
   return (
     <View style={styles.container}>
       <StatusModal
@@ -69,7 +59,6 @@ export default function AddCoder() {
         onClose={onClose}
         status={statusModal.status}
       />
-
       <Text>Coder Name</Text>
       <View>
         <Controller

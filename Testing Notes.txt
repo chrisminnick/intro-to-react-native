@@ -1,0 +1,29 @@
+Testing Notes
+
+Started 7/30/2025
+
+OS: Windows 11
+Node version: 22.12.0
+npm version: 11.5.1
+
+
+Setup Instructions
+Environment dependencies already installed
+Using Android Studio Ladybug|2024.2.1
+
+** Couldn't create a virtual device because of my CPU (Android studio requires Intel for windows?)
+
+Lab 1 - 3: no problems
+
+Lab 4: Got an error on run. It turned out that the latest version of Expo has a conflict with graphql. I had to revert to a slightly older version:
+    "expo": "~53.0.17",
+
+Lab 5: no problems
+
+Lab 6: no problems
+
+Lab 7: no problems
+Lab 8: no problems
+Lab 9: no problems
+Lab 10: no problems
+

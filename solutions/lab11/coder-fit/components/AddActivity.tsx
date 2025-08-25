@@ -6,19 +6,6 @@ import StatusModal from './StatusModal';
 import { useStatusModal } from '../context/statusModalContext';
 import { Picker } from '@react-native-picker/picker';
 
-/*
-The Activities query returns a list of all the possible activities that the coders can do, each with a unique id. 
-
-query activities {
-  activities {
-    id
-    name
-    description
-  }
-}
-
-The Coders query returns a list of all the coders in your app, each with a name and an array of activity ids that indicate which activities they have done so far.
-*/
 const ACTIVITIES_QUERY = gql`
   query activities {
     activities {
@@ -74,7 +61,6 @@ export default function AddActivity() {
     error: activitiesError,
   } = useQuery(ACTIVITIES_QUERY);
 
-  //the user can select a coder and an activity from the dropdowns and submit the form to add the activity to the coder.
   const { statusModal, setStatusModal } = useStatusModal();
   const updateStatusModal = (status: string) => {
     setStatusModal({
